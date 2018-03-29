@@ -114,6 +114,7 @@ User.find({ username: 'Kenny_the_boy'}).exec(function(err, res) {
 });
 */
 
+/* Updating documents:
 User.find({ username: 'Kenny_the_boy'}, function(err, user) {
 	if (err) throw err;
 	console.log('Old password is ' + user[0].password);
@@ -124,4 +125,22 @@ User.find({ username: 'Kenny_the_boy'}, function(err, user) {
 		if (err) throw err;
 		console.log('Uzytkownik ' + user[0].name + ' zostal pomyslnie zaktualizowany');
 	})
+});
+*/
+
+/* Remove user:
+User.find({ username: 'Mark_the_boy' }, function(err, user) {
+	if (err) throw err;
+	user = user[0];
+	user.remove(function(err) {
+		if (err) throw err;
+		console.log('User successfully deleted');
+	});
+});
+*/
+
+// Remove user method 2:
+User.findOneAndRemove({ username: 'Benny_the_boy'}, function(err) {
+	if (err) throw err;
+	console.log('User deleted');
 });
