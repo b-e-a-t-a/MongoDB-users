@@ -35,8 +35,10 @@ userSchema.pre('save', function(next) {
     next();
 });
 
+//mongoose model
 const User = mongoose.model('User', userSchema);
 
+//new instance
 const kenny = new User({
     name: 'Kenny',
     username: 'Kenny_the_boy',
@@ -70,6 +72,7 @@ benny.save(function(err) {
 	console.log('Uzytkownik ' + benny.name + ' zapisany pomyslnie');
 });
 
+
 const mark = new User ({
 	name: 'Mark',
 	username: 'Mark_the_boy',
@@ -84,4 +87,20 @@ mark.manify(function(err, name) {
 mark.save(function(err) {
 	if (err) throw (err);
 	console.log('Uzytkownik ' + mark.name + ' zapisany pomyslnie');
+});
+
+/*
+User.find({}, function(err, res) {
+	if (err) throw err;
+	console.log('Actual database records are ' + res);
+});
+*/
+
+const query = User.find({});
+const promise = query.exec();
+promise.then(function(records) {
+	console.log('Actual database records are ' + records);
+});
+promise.catch(function(reason) {
+	console.log('Something went wrong: ', reason);
 });
