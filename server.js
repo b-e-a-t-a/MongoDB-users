@@ -89,13 +89,14 @@ mark.save(function(err) {
 	console.log('Uzytkownik ' + mark.name + ' zapisany pomyslnie');
 });
 
-/*
+/* To find all records (method with callback)
 User.find({}, function(err, res) {
 	if (err) throw err;
 	console.log('Actual database records are ' + res);
 });
 */
 
+/* To find all records (method with promise):
 const query = User.find({});
 const promise = query.exec();
 promise.then(function(records) {
@@ -103,4 +104,24 @@ promise.then(function(records) {
 });
 promise.catch(function(reason) {
 	console.log('Something went wrong: ', reason);
+});
+*/
+
+/* To find specified records:
+User.find({ username: 'Kenny_the_boy'}).exec(function(err, res) {
+	if (err) throw err;
+	console.log('Record you are looking for is ' + res);
+});
+*/
+
+User.find({ username: 'Kenny_the_boy'}, function(err, user) {
+	if (err) throw err;
+	console.log('Old password is ' + user[0].password);
+	user[0].password = 'newPassword';
+	console.log('New password is ' + user[0].password);
+
+	user[0].save(function(err) {
+		if (err) throw err;
+		console.log('Uzytkownik ' + user[0].name + ' zostal pomyslnie zaktualizowany');
+	})
 });
